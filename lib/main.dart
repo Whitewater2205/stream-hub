@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -25,6 +28,17 @@ final _adContentBlockers = <ContentBlocker>[
     ),
 ];
 const _filteredServices = <String>{'YouTube', 'Spotify'};
+const _adDomains = <String>{
+  'doubleclick.net',
+  'googleadservices.com',
+  'googlesyndication.com',
+};
+
+bool _isAdDomain(String host) {
+  final normalizedHost = host.toLowerCase();
+  return _adDomains.any((domain) =>
+      normalizedHost == domain || normalizedHost.endsWith('.$domain'));
+}
 
 class StreamHubApp extends StatelessWidget {
   const StreamHubApp({super.key});
@@ -648,6 +662,8 @@ class _ProviderPageState extends State<ProviderPage> {
   @override
   Widget build(BuildContext context) {
     final service = widget.service;
+    final isWindows = defaultTargetPlatform == TargetPlatform.windows;
+    final shouldFilterAds = _filteredServices.contains(service.name);
     return Shortcuts(
       shortcuts: const <ShortcutActivator, Intent>{
         SingleActivator(LogicalKeyboardKey.escape): _BackIntent(),
@@ -721,11 +737,25 @@ class _ProviderPageState extends State<ProviderPage> {
                     allowsBackForwardNavigationGestures: true,
                     // Restrict the experimental content filter to YouTube and
                     // Spotify. Other providers' pages remain untouched.
-                    contentBlockers: _filteredServices.contains(service.name)
+                    contentBlockers: shouldFilterAds && !isWindows
                         ? _adContentBlockers
                         : null,
+                    useShouldInterceptRequest: isWindows && shouldFilterAds,
                   ),
                   onWebViewCreated: (controller) => _controller = controller,
+                  shouldInterceptRequest: isWindows && shouldFilterAds
+                      ? (controller, request) async {
+                          final host = request.url.host;
+                          if (!_isAdDomain(host)) return null;
+                          return WebResourceResponse(
+                            contentType: 'text/plain',
+                            data: Uint8List(0),
+                            headers: const <String, String>{},
+                            statusCode: 204,
+                            reasonPhrase: 'No Content',
+                          );
+                        }
+                      : null,
                   onLoadStart: (controller, url) {
                     if (mounted) setState(() { _host = url?.host ?? ''; _loadError = null; });
                   },

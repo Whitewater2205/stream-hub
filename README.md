@@ -35,7 +35,7 @@ Die Windows-Version und die Android-APK erscheinen als Anlagen auf der GitHub-Se
 
 Android TV und Fire TV erhalten dieselbe APK. Der Leanback-Launcher-Eintrag ist eingerichtet; Fernbedienungsnavigation, Anbieter-Webseiten und Videowiedergabe müssen noch auf Zielgeräten geprüft werden. Streaming-Dienste können eingebettete Browser, Anmeldung oder Wiedergabe einschränken; DRM-Wiedergabe ist nicht garantiert.
 
-Der Filter in YouTube und Spotify ist kein vollständiger AdGuard- oder uBlock-Ersatz und kann Anzeigen, die der jeweilige Anbieter selbst ausliefert, nicht zuverlässig erkennen oder entfernen. Die Content-Blocker-Funktion hängt von der WebView-Plattform ab; plattformübergreifende Filterwirkung ist nicht garantiert. Auf anderen Anbieterseiten werden diese Filterregeln nicht angewendet.
+Der Filter in YouTube und Spotify ist kein vollständiger AdGuard- oder uBlock-Ersatz und kann Anzeigen, die der jeweilige Anbieter selbst ausliefert, nicht zuverlässig erkennen oder entfernen. Android nutzt die Content-Blocker-Funktion der WebView; Windows filtert ausgewählte WebView2-Anfragen über den App-Callback. Auf anderen Anbieterseiten werden diese Filterregeln nicht angewendet. Die Windows-Filterung ist experimentell und kann die Ladezeit oder einzelne Seitenfunktionen beeinflussen.
 
 ## Selbst bauen
 
@@ -51,7 +51,7 @@ Der Android-Release-Build ist derzeit mit dem Debug-Zertifikat signiert und nur 
 
 ## GitHub-Releases
 
-Ein Push eines Versions-Tags wie `v0.2.5` startet `.github/workflows/release.yml`. Der Workflow baut ein Windows-ZIP und eine Android-APK und hängt sie an einen GitHub-Release. Der APK-Download ist zugleich für Android-TV-/Fire-TV-Testgeräte vorgesehen.
+Ein Push eines Versions-Tags wie `v0.2.6` startet `.github/workflows/release.yml`. Der Workflow baut ein Windows-ZIP und eine Android-APK und hängt sie an einen GitHub-Release. Der APK-Download ist zugleich für Android-TV-/Fire-TV-Testgeräte vorgesehen.
 
 ## Datenschutz und Marken
 
