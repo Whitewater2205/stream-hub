@@ -1821,7 +1821,7 @@ class AboutPage extends StatelessWidget {
                     'Wir planen, mit Netflix, Disney+, Amazon und weiteren Anbietern die Bedingungen zu klären und nötige schriftliche Freigaben einzuholen. Bestätigungen liegen noch nicht vor; Anmeldung und Wiedergabe sind daher nicht zugesichert.',
               ),
               const SizedBox(height: 24),
-              Text('Stream Hub • Diagnose v0.3.2',
+              Text('Stream Hub • Diagnose v0.3.3',
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium
