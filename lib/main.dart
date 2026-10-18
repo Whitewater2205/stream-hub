@@ -538,7 +538,7 @@ class AboutPage extends StatelessWidget {
               Text('Ein Hub. Deine Dienste.', style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w800)),
               const SizedBox(height: 12),
-              const Text('Stream Hub soll ein zentraler Startpunkt für Angebote wie Netflix, Disney+ und Prime Video werden. Die App öffnet die offiziellen Anbieter-Websites in einem eigenen Bereich.',
+              const Text('Stream Hub ist ein früher, noch unvollständiger Prototyp. Er soll ein zentraler Startpunkt für Angebote wie Netflix, Disney+ und Prime Video werden und deren offizielle Websites in einem eigenen Bereich öffnen.',
                 style: TextStyle(color: _muted, height: 1.5)),
               const SizedBox(height: 24),
               const _InfoTile(
