@@ -6,6 +6,17 @@ Stream Hub ist ein unabhängiger Flutter-Prototyp für Windows-PCs, Android-Smar
 
 Wir planen, die Anbieter über das Konzept zu informieren und die nötigen schriftlichen Freigaben sowie technische Kompatibilitätsbestätigungen einzuholen. Bestätigungen von Netflix, Disney+, Amazon/Prime Video oder anderen Anbietern liegen derzeit nicht vor. Bis diese vorliegen und die jeweilige technische Prüfung abgeschlossen ist, können wir weder eine offizielle Unterstützung noch eine reibungslose Anmeldung oder Wiedergabe versprechen. Der aktuelle Build ist ein unabhängiger Prototyp.
 
+## Community, Vorschläge und Support
+
+Für den öffentlichen Projektbereich planen wir einen moderierten GitHub-Feed:
+
+- **Ideen und Wünsche:** als GitHub Discussion, damit Vorschläge kommentiert, priorisiert und bei Bedarf in konkrete Aufgaben übernommen werden können.
+- **Fragen und Umfragen:** in Discussions, zum Beispiel zu gewünschten Plattformen oder Bedienfunktionen.
+- **Fehlerberichte und Feature-Anfragen:** über die strukturierten Formulare unter **Issues**. Die Formulare fragen Plattform, Schritte und Erwartung ab und erinnern daran, keine Passwörter, Cookies oder Kontodaten zu posten.
+- **Neuigkeiten und Releases:** als GitHub-Ankündigungen und Release-Notizen.
+
+GitHub Discussions muss nach dem Erstellen des Repositorys in den Einstellungen aktiviert und mit Kategorien wie „Ideen“, „Fragen“, „Umfragen“ und „Ankündigungen“ eingerichtet werden. Das ist ein asynchroner Feed, kein Live-Chat; dafür ist kein eigener Chat-Server nötig. Bis der GitHub-Bereich veröffentlicht ist, sind diese Kontaktwege noch nicht aktiv.
+
 ## Downloads
 
 Die Windows-Version und die Android-APK erscheinen als Anlagen auf der GitHub-Seite **Releases**, sobald ein Versionstag gebaut wurde. Diese Downloads sind Prototypen; die Geräte- und Wiedergabeprüfung ist noch offen.

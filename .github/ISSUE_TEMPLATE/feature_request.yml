@@ -1,0 +1,35 @@
+name: Feature-Wunsch
+description: Schlage eine Verbesserung oder neue Funktion für Stream Hub vor.
+title: "[Idee]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: "Danke für deinen Vorschlag. Bitte poste keine Passwörter, Cookies, Zahlungsdaten oder privaten Kontoinformationen."
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Plattform
+      options:
+        - Windows-PC
+        - Android
+        - Android TV
+        - Fire TV
+        - Andere
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: Welches Problem oder welchen Wunsch hast du?
+      description: Beschreibe kurz, was du erreichen möchtest.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Wie könnte die Funktion aussehen?
+      description: Optional: beschreibe deinen Vorschlag oder füge einen Screenshot ohne persönliche Daten hinzu.
+    validations:
+      required: false

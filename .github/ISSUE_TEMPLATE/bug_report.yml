@@ -1,0 +1,42 @@
+name: Fehler melden
+description: Melde einen Fehler oder ein Problem in Stream Hub.
+title: "[Fehler]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: "Bitte poste keine Passwörter, Cookies, Zahlungsdaten, E-Mail-Adressen oder privaten Kontoinformationen."
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Plattform
+      options:
+        - Windows-PC
+        - Android
+        - Android TV
+        - Fire TV
+        - Andere
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Stream-Hub-Version
+      placeholder: "Zum Beispiel 0.2.0"
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Auftreten
+      description: Schreibe die Schritte so, dass wir das Problem nachvollziehen können.
+      placeholder: "1. Stream Hub öffnen …\n2. Anbieter wählen …\n3. Das passiert …"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Was hast du erwartet und was ist passiert?
+    validations:
+      required: true
