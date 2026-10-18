@@ -79,6 +79,12 @@ const services = <StreamingService>[
     description: 'Videos, Livestreams und Creator-Inhalte auf YouTube.',
   ),
   StreamingService(
+    name: 'Spotify', tagline: 'Musik, Podcasts & Hörbücher',
+    url: 'https://open.spotify.com/', icon: Icons.music_note_rounded,
+    color: Color(0xFF1DB954), category: 'Musik',
+    description: 'Musik, Podcasts und Hörbücher auf der offiziellen Spotify-Webseite.',
+  ),
+  StreamingService(
     name: 'WOW', tagline: 'Serien, Filme & Live-Sport',
     url: 'https://www.wowtv.de/', icon: Icons.bolt_rounded,
     color: Color(0xFF7445D8), category: 'Serien & Filme',
