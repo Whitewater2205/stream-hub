@@ -19,7 +19,7 @@ final _adContentBlockers = <ContentBlocker>[
   ])
     ContentBlocker(
       trigger: ContentBlockerTrigger(
-        urlFilter: '.*([./])${domain.replaceAll('.', r'\.')}([/:?#]|$).*',
+        urlFilter: '.*([./])${domain.replaceAll('.', r'\.')}([/:?#]|\$).*',
       ),
       action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK),
     ),

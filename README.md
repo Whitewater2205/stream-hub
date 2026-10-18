@@ -51,7 +51,7 @@ Der Android-Release-Build ist derzeit mit dem Debug-Zertifikat signiert und nur 
 
 ## GitHub-Releases
 
-Ein Push eines Versions-Tags wie `v0.2.4` startet `.github/workflows/release.yml`. Der Workflow baut ein Windows-ZIP und eine Android-APK und hängt sie an einen GitHub-Release. Der APK-Download ist zugleich für Android-TV-/Fire-TV-Testgeräte vorgesehen.
+Ein Push eines Versions-Tags wie `v0.2.5` startet `.github/workflows/release.yml`. Der Workflow baut ein Windows-ZIP und eine Android-APK und hängt sie an einen GitHub-Release. Der APK-Download ist zugleich für Android-TV-/Fire-TV-Testgeräte vorgesehen.
 
 ## Datenschutz und Marken
 
