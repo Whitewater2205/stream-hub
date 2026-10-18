@@ -2,7 +2,7 @@
 
 > **Frühe Entwicklungsphase:** Stream Hub ist ein unfertiger Prototyp. Funktionen, Plattform-Unterstützung und Anbieter-Ansichten können unvollständig sein oder sich ändern. Anmeldung und Videowiedergabe funktionieren nicht bei allen Diensten zuverlässig.
 
-Stream Hub ist ein unabhängiger Flutter-Prototyp für Windows-PCs, Android-Smartphones und – als nächster Prüfschritt – Android-TV-/Fire-TV-Geräte. Die App soll als zentraler Startpunkt zu offiziellen Streaming-Angeboten wie Netflix, Disney+, Prime Video, YouTube, Spotify, WOW, RTL+, Joyn und Paramount+ dienen. Inhalte, Konten und Videodaten bleiben bei den jeweiligen Anbietern; Stream Hub hostet keine Streams und verwendet keine Anbieter-API-Schlüssel.
+Stream Hub ist ein unabhängiger Flutter-Prototyp für Windows-PCs, Android-Smartphones und – als nächster Prüfschritt – Android-TV-/Fire-TV-Geräte. Die App soll als zentraler Startpunkt zu offiziellen Streaming-Angeboten wie Netflix, Disney+, Prime Video, YouTube, Spotify, WOW, RTL+, Joyn und Paramount+ dienen. Inhalte, Konten und Videodaten bleiben bei den jeweiligen Anbietern; Stream Hub hostet keine Streams und verwendet keine Anbieter-API-Schlüssel. Ein kleiner experimenteller URL-Filter ist ausschließlich in den Ansichten von YouTube und Spotify aktiv und blockiert nur ausgewählte externe Werbedomains.
 
 ## Projektstatus und Anbieterfreigaben
 
@@ -35,6 +35,8 @@ Die Windows-Version und die Android-APK erscheinen als Anlagen auf der GitHub-Se
 
 Android TV und Fire TV erhalten dieselbe APK. Der Leanback-Launcher-Eintrag ist eingerichtet; Fernbedienungsnavigation, Anbieter-Webseiten und Videowiedergabe müssen noch auf Zielgeräten geprüft werden. Streaming-Dienste können eingebettete Browser, Anmeldung oder Wiedergabe einschränken; DRM-Wiedergabe ist nicht garantiert.
 
+Der Filter in YouTube und Spotify ist kein vollständiger AdGuard- oder uBlock-Ersatz und kann Anzeigen, die der jeweilige Anbieter selbst ausliefert, nicht zuverlässig erkennen oder entfernen. Die Content-Blocker-Funktion hängt von der WebView-Plattform ab; plattformübergreifende Filterwirkung ist nicht garantiert. Auf anderen Anbieterseiten werden diese Filterregeln nicht angewendet.
+
 ## Selbst bauen
 
 Benötigt werden Flutter 3.47.7, Dart aus dem Flutter SDK und für Android ein Android SDK mit Java 17.
@@ -49,7 +51,7 @@ Der Android-Release-Build ist derzeit mit dem Debug-Zertifikat signiert und nur 
 
 ## GitHub-Releases
 
-Ein Push eines Versions-Tags wie `v0.2.3` startet `.github/workflows/release.yml`. Der Workflow baut ein Windows-ZIP und eine Android-APK und hängt sie an einen GitHub-Release. Der APK-Download ist zugleich für Android-TV-/Fire-TV-Testgeräte vorgesehen.
+Ein Push eines Versions-Tags wie `v0.2.4` startet `.github/workflows/release.yml`. Der Workflow baut ein Windows-ZIP und eine Android-APK und hängt sie an einen GitHub-Release. Der APK-Download ist zugleich für Android-TV-/Fire-TV-Testgeräte vorgesehen.
 
 ## Datenschutz und Marken
 

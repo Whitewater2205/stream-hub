@@ -9,6 +9,23 @@ const _panel = Color(0xFF151925);
 const _muted = Color(0xFFA5ADBE);
 const _violet = Color(0xFFB7A0FF);
 
+// A deliberately small filter list. It does not block ads served from the
+// providers' own domains and is not a replacement for AdGuard or uBlock.
+final _adContentBlockers = <ContentBlocker>[
+  for (final domain in <String>[
+    'doubleclick.net',
+    'googleadservices.com',
+    'googlesyndication.com',
+  ])
+    ContentBlocker(
+      trigger: ContentBlockerTrigger(
+        urlFilter: '.*([./])${domain.replaceAll('.', r'\.')}([/:?#]|$).*',
+      ),
+      action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK),
+    ),
+];
+const _filteredServices = <String>{'YouTube', 'Spotify'};
+
 class StreamHubApp extends StatelessWidget {
   const StreamHubApp({super.key});
 
@@ -671,11 +688,15 @@ class _ProviderPageState extends State<ProviderPage> {
                 width: double.infinity,
                 color: const Color(0xFF201C31),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-                child: const Row(children: [
-                  Icon(Icons.info_outline_rounded, size: 16, color: _violet),
-                  SizedBox(width: 8),
-                  Expanded(child: Text('Offizielle Anbieterseite. Anmeldung und Wiedergabe können im eingebetteten Browser eingeschränkt sein.',
-                    style: TextStyle(fontSize: 12, color: Color(0xFFD8D1EC)))),
+                child: Row(children: [
+                  const Icon(Icons.info_outline_rounded, size: 16, color: _violet),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(
+                    _filteredServices.contains(service.name)
+                        ? 'Experimenteller Filter aktiv: ausgewählte externe Werbedomains werden blockiert. Werbung des Anbieters kann weiter erscheinen.'
+                        : 'Offizielle Anbieterseite. Anmeldung und Wiedergabe können im eingebetteten Browser eingeschränkt sein.',
+                    style: const TextStyle(fontSize: 12, color: Color(0xFFD8D1EC)),
+                  )),
                 ]),
               ),
               if (_loadError != null)
@@ -698,6 +719,11 @@ class _ProviderPageState extends State<ProviderPage> {
                     // redirects and this interception can leave its renderer stuck.
                     useShouldOverrideUrlLoading: false,
                     allowsBackForwardNavigationGestures: true,
+                    // Restrict the experimental content filter to YouTube and
+                    // Spotify. Other providers' pages remain untouched.
+                    contentBlockers: _filteredServices.contains(service.name)
+                        ? _adContentBlockers
+                        : null,
                   ),
                   onWebViewCreated: (controller) => _controller = controller,
                   onLoadStart: (controller, url) {
