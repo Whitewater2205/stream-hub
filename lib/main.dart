@@ -538,7 +538,7 @@ class AboutPage extends StatelessWidget {
               Text('Ein Hub. Deine Dienste.', style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w800)),
               const SizedBox(height: 12),
-              const Text('Stream Hub bündelt deine Anbieter an einem Ort und öffnet deren offizielle Websites in einem eigenen App-Bereich.',
+              const Text('Stream Hub soll ein zentraler Startpunkt für Angebote wie Netflix, Disney+ und Prime Video werden. Die App öffnet die offiziellen Anbieter-Websites in einem eigenen Bereich.',
                 style: TextStyle(color: _muted, height: 1.5)),
               const SizedBox(height: 24),
               const _InfoTile(
@@ -555,8 +555,8 @@ class AboutPage extends StatelessWidget {
               const SizedBox(height: 12),
               const _InfoTile(
                 icon: Icons.handshake_outlined,
-                title: 'Partnerschaften sind noch offen',
-                body: 'Die gezeigten Logos und Namen dienen nur zur Auswahl eines Dienstes. Es besteht keine Partnerschaft oder Einbettungsfreigabe.',
+                title: 'Anbieterfreigaben stehen noch aus',
+                body: 'Wir planen, mit Netflix, Disney+, Amazon und weiteren Anbietern die Bedingungen zu klären und nötige schriftliche Freigaben einzuholen. Bestätigungen liegen noch nicht vor; Anmeldung und Wiedergabe sind daher nicht zugesichert.',
               ),
               const SizedBox(height: 24),
               Text('Stream Hub • Prototyp', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: _muted)),
