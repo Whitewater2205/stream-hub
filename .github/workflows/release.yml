@@ -1,0 +1,81 @@
+name: Build and publish preview downloads
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Windows x64
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+      - name: Resolve Flutter dependencies
+        run: flutter pub get
+      - name: Build Windows app
+        run: flutter build windows --release
+      - name: Package Windows app
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath dist/Stream-Hub-Windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-download
+          path: dist/Stream-Hub-Windows-x64.zip
+          if-no-files-found: error
+
+  android:
+    name: Android / Android TV / Fire TV
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+      - name: Resolve Flutter dependencies
+        run: flutter pub get
+      - name: Build Android preview APK
+        run: flutter build apk --release
+      - name: Name APK for phone and TV
+        run: |
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk dist/Stream-Hub-Android-TV-Fire-TV-Preview.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-download
+          path: dist/Stream-Hub-Android-TV-Fire-TV-Preview.apk
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub Release
+    needs: [windows, android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-download
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: android-download
+          path: dist
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/Stream-Hub-Windows-x64.zip
+            dist/Stream-Hub-Android-TV-Fire-TV-Preview.apk
