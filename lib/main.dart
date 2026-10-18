@@ -14,6 +14,17 @@ const _supabasePublishableKey =
 bool _backendConfigured = false;
 String? _backendSetupError;
 
+String _redactSetupError(String error) {
+  final safeError = error
+      .replaceAll(
+        RegExp(r'\b(?:sb_(?:publishable|secret)_[A-Za-z0-9_-]+|eyJ[A-Za-z0-9._-]{20,})\b'),
+        '[Schlüssel ausgeblendet]',
+      )
+      .replaceAll(RegExp(r'\s+'), ' ')
+      .trim();
+  return safeError.length > 240 ? '${safeError.substring(0, 240)}…' : safeError;
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (_supabaseUrl.isNotEmpty && _supabasePublishableKey.isNotEmpty) {
@@ -454,12 +465,46 @@ class _AccountScreenState extends State<AccountScreen> {
                                 _AuthMessage(_error!, isError: true),
                               if (_message != null) _AuthMessage(_message!),
                               if (!widget.backendReady)
-                                _AuthMessage(
-                                  widget.setupError == null
-                                      ? 'Verbinde zuerst ein kostenloses Supabase-Projekt mit StreamHub. Die Anleitung liegt in SUPABASE_SETUP.md. Online-Registrierung wird erst danach freigeschaltet.'
-                                      : 'Backend-Start fehlgeschlagen. Bitte prüfe die Supabase-Projektkonfiguration.',
-                                  isError: widget.setupError != null,
-                                ),
+                                ...[
+                                  _AuthMessage(
+                                    widget.setupError == null
+                                        ? 'Verbinde zuerst ein kostenloses Supabase-Projekt mit StreamHub. Die Anleitung liegt in SUPABASE_SETUP.md. Online-Registrierung wird erst danach freigeschaltet.'
+                                        : 'StreamHub konnte den Anmeldedienst nicht starten. Die Diagnose darunter hilft uns, den Fehler zu finden.',
+                                    isError: widget.setupError != null,
+                                  ),
+                                  if (widget.setupError != null)
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom: 12),
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withValues(alpha: .2),
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: Colors.white.withValues(alpha: .12),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'Technische Diagnose (zum Weiterleiten)',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 6),
+                                          SelectableText(
+                                            _redactSetupError(widget.setupError!),
+                                            style: const TextStyle(
+                                              color: _muted,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
                               const SizedBox(height: 12),
                               FilledButton(
                                 onPressed: _busy || !widget.backendReady
@@ -1776,7 +1821,7 @@ class AboutPage extends StatelessWidget {
                     'Wir planen, mit Netflix, Disney+, Amazon und weiteren Anbietern die Bedingungen zu klären und nötige schriftliche Freigaben einzuholen. Bestätigungen liegen noch nicht vor; Anmeldung und Wiedergabe sind daher nicht zugesichert.',
               ),
               const SizedBox(height: 24),
-              Text('Stream Hub • Vorschau v0.3.1',
+              Text('Stream Hub • Diagnose v0.3.2',
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium
