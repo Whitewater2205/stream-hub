@@ -1,6 +1,6 @@
 # Stream Hub
 
-> **Frühe Entwicklungsphase:** Stream Hub ist ein unfertiger Prototyp. Funktionen, Plattform-Unterstützung und Anbieter-Ansichten können unvollständig sein oder sich ändern. Anmeldung und Videowiedergabe funktionieren nicht bei allen Diensten zuverlässig.
+> **Frühe Entwicklungsphase:** Stream Hub ist ein unfertiger Prototyp. Funktionen, Plattform-Unterstützung und Anbieter-Ansichten können unvollständig sein oder sich ändern. Der lokal installierte Windows-Build und die GitHub-Release-Builds verwenden das StreamHub-Projekt. Das öffentliche Repository enthält dafür nur die clientseitige Projektadresse und den Publishable Key; SMTP-Passwort, Datenbankpasswort und `service_role`-Schlüssel bleiben privat. Öffentliche Kontoanmeldungen benötigen noch einen externen SMTP-Maildienst für Bestätigungs-E-Mails. Videowiedergabe funktioniert nicht bei allen Diensten zuverlässig.
 
 Stream Hub ist ein unabhängiger Flutter-Prototyp für Windows-PCs, Android-Smartphones und – als nächster Prüfschritt – Android-TV-/Fire-TV-Geräte. Die App soll als zentraler Startpunkt zu offiziellen Streaming-Angeboten wie Netflix, Disney+, Prime Video, YouTube, Spotify, WOW, RTL+, Joyn und Paramount+ dienen. Inhalte, Konten und Videodaten bleiben bei den jeweiligen Anbietern; Stream Hub hostet keine Streams und verwendet keine Anbieter-API-Schlüssel. Ein kleiner experimenteller URL-Filter ist ausschließlich in den Ansichten von YouTube und Spotify aktiv und blockiert nur ausgewählte externe Werbedomains.
 

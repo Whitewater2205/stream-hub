@@ -1,20 +1,25 @@
 name: stream_hub
 description: Responsive cross-platform streaming service hub prototype
 publish_to: 'none'
-version: 0.2.6+8
+version: 0.3.1+11
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
 dependencies:
+  audioplayers: ^6.8.1
   flutter:
     sdk: flutter
   flutter_inappwebview: ^6.1.5
+  supabase_flutter: ^2.18.3
 
 dev_dependencies:
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/stream_hub_intro.wav
 
