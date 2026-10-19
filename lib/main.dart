@@ -1876,6 +1876,22 @@ class _ProviderPageState extends State<ProviderPage> {
   double _progress = 0;
   String? _loadError;
   String _host = '';
+  bool _showInfoBanner = true;
+  Timer? _infoBannerTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _infoBannerTimer = Timer(const Duration(seconds: 5), () {
+      if (mounted) setState(() => _showInfoBanner = false);
+    });
+  }
+
+  @override
+  void dispose() {
+    _infoBannerTimer?.cancel();
+    super.dispose();
+  }
 
   Future<void> _back() async {
     final controller = _controller;
@@ -1959,27 +1975,28 @@ class _ProviderPageState extends State<ProviderPage> {
                   : null,
             ),
             body: Column(children: [
-              Container(
-                width: double.infinity,
-                color: const Color(0xFF201C31),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-                child: Row(children: [
-                  const Icon(Icons.info_outline_rounded,
-                      size: 16, color: _violet),
-                  const SizedBox(width: 8),
-                  Expanded(
-                      child: Text(
-                    _filteredServices.contains(service.name) && isWindows
-                        ? 'Der experimentelle Werbefilter ist unter Windows wegen eines Stabilitätsfehlers vorübergehend deaktiviert.'
-                        : _filteredServices.contains(service.name)
-                            ? 'Experimenteller Filter aktiv: ausgewählte externe Werbedomains werden blockiert. Werbung des Anbieters kann weiter erscheinen.'
-                        : 'Offizielle Anbieterseite. Anmeldung und Wiedergabe können im eingebetteten Browser eingeschränkt sein.',
-                    style:
-                        const TextStyle(fontSize: 12, color: Color(0xFFD8D1EC)),
-                  )),
-                ]),
-              ),
+              if (_showInfoBanner)
+                Container(
+                  width: double.infinity,
+                  color: const Color(0xFF201C31),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                  child: Row(children: [
+                    const Icon(Icons.info_outline_rounded,
+                        size: 16, color: _violet),
+                    const SizedBox(width: 8),
+                    Expanded(
+                        child: Text(
+                      _filteredServices.contains(service.name) && isWindows
+                          ? 'Der experimentelle Werbefilter ist unter Windows wegen eines Stabilitätsfehlers vorübergehend deaktiviert.'
+                          : _filteredServices.contains(service.name)
+                              ? 'Experimenteller Filter aktiv: ausgewählte externe Werbedomains werden blockiert. Werbung des Anbieters kann weiter erscheinen.'
+                              : 'Offizielle Anbieterseite. Anmeldung und Wiedergabe können im eingebetteten Browser eingeschränkt sein.',
+                      style: const TextStyle(
+                          fontSize: 12, color: Color(0xFFD8D1EC)),
+                    )),
+                  ]),
+                ),
               if (_loadError != null)
                 MaterialBanner(
                   content: Text(
