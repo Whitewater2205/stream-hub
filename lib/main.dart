@@ -1970,8 +1970,10 @@ class _ProviderPageState extends State<ProviderPage> {
                   const SizedBox(width: 8),
                   Expanded(
                       child: Text(
-                    _filteredServices.contains(service.name)
-                        ? 'Experimenteller Filter aktiv: ausgewählte externe Werbedomains werden blockiert. Werbung des Anbieters kann weiter erscheinen.'
+                    _filteredServices.contains(service.name) && isWindows
+                        ? 'Der experimentelle Werbefilter ist unter Windows wegen eines Stabilitätsfehlers vorübergehend deaktiviert.'
+                        : _filteredServices.contains(service.name)
+                            ? 'Experimenteller Filter aktiv: ausgewählte externe Werbedomains werden blockiert. Werbung des Anbieters kann weiter erscheinen.'
                         : 'Offizielle Anbieterseite. Anmeldung und Wiedergabe können im eingebetteten Browser eingeschränkt sein.',
                     style:
                         const TextStyle(fontSize: 12, color: Color(0xFFD8D1EC)),
@@ -2011,22 +2013,13 @@ class _ProviderPageState extends State<ProviderPage> {
                     contentBlockers: shouldFilterAds && !isWindows
                         ? _adContentBlockers
                         : null,
-                    useShouldInterceptRequest: isWindows && shouldFilterAds,
+                    // The Windows plugin's request interception hook can crash
+                    // the native WebView2 renderer (access violation). Keep
+                    // the experimental filter on platforms where the plugin
+                    // provides a stable content-blocker implementation.
+                    useShouldInterceptRequest: false,
                   ),
                   onWebViewCreated: (controller) => _controller = controller,
-                  shouldInterceptRequest: isWindows && shouldFilterAds
-                      ? (controller, request) async {
-                          final host = request.url.host;
-                          if (!_isAdDomain(host)) return null;
-                          return WebResourceResponse(
-                            contentType: 'text/plain',
-                            data: Uint8List(0),
-                            headers: const <String, String>{},
-                            statusCode: 204,
-                            reasonPhrase: 'No Content',
-                          );
-                        }
-                      : null,
                   onLoadStart: (controller, url) {
                     if (mounted) {
                       setState(() {

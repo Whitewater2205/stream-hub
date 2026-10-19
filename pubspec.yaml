@@ -1,7 +1,7 @@
 name: stream_hub
 description: Responsive cross-platform streaming service hub prototype
 publish_to: 'none'
-version: 0.3.3+13
+version: 0.3.4+14
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
